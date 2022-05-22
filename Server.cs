@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Net;
@@ -25,6 +26,7 @@ public class Server
                 {
                     //start new round
                     Game game = new Game(Players.ToArray());
+                    Operations.Add(game.UpdateRPC);
                     Operations.Add(game.HitRPC);
                     Operations.Add(game.StandRPC);
                     game.OpeningDeal();
@@ -37,6 +39,7 @@ public class Server
             Console.WriteLine("Waiting for connection...");
             Socket player = listener.Accept();
             Players.Add(new Player(player));
+            Networking.Send(player, (Players.Count - 1).ToString());
             Console.WriteLine("Player connected from " + player.RemoteEndPoint);
             new Thread(() =>
             {

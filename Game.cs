@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 public class Game
 {
@@ -55,6 +56,15 @@ public class Game
     public string StandRPC(string ignore)
     {
         if (++CurrentPlayer >= players.Length) EndRound();
-        return null;
+        return "";
+    }
+
+    public string UpdateRPC(string ignore)
+    {
+        JObject obj = new JObject();
+        obj.Add("currentPlayer", CurrentPlayer);
+        obj.Add("players", JsonConvert.SerializeObject(players));
+        obj.Add("dealer", JsonConvert.SerializeObject(dealer));
+        return obj.ToString();
     }
 }
