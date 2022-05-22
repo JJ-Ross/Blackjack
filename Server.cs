@@ -30,6 +30,7 @@ public class Server
                     Operations.Add(game.HitRPC);
                     Operations.Add(game.StandRPC);
                     game.OpeningDeal();
+                    Players.ForEach(player => Networking.Send(player.Connection, "")); //Notify start of game
                     break;
                 }
             }

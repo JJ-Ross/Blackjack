@@ -4,11 +4,11 @@ using System.Net.Sockets;
 public class Player
 {
     public List<Card> Hand = new List<Card>();
-    private Socket connection;
+    public Socket Connection;
 
     public Player(Socket connection)
     {
-        this.connection = connection;
+        this.Connection = connection;
     }
 
     public int GetTotal()
