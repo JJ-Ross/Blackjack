@@ -8,10 +8,10 @@ using System.Threading;
 public class Server
 {
     public static List<Func<string, string>> Operations = new List<Func<string, string>>();
+    public static List<Player> Players = new List<Player>();
 
     static void Main()
     {
-        PopulateOperations();
         IPEndPoint localEndPoint = new IPEndPoint(IPAddress.Any, 8080);
         Socket listener = new Socket(IPAddress.Any.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
         listener.Bind(localEndPoint);
@@ -24,6 +24,10 @@ public class Server
                 if (line.Equals("start"))
                 {
                     //start new round
+                    Game game = new Game(Players.ToArray());
+                    Operations.Add(game.HitRPC);
+                    Operations.Add(game.StandRPC);
+                    game.OpeningDeal();
                     break;
                 }
             }
@@ -32,6 +36,7 @@ public class Server
         {
             Console.WriteLine("Waiting for connection...");
             Socket player = listener.Accept();
+            Players.Add(new Player(player));
             Console.WriteLine("Player connected from " + player.RemoteEndPoint);
             new Thread(() =>
             {
@@ -42,10 +47,5 @@ public class Server
                 }
             }).Start();
         }
-    }
-
-    private static void PopulateOperations()
-    {
-        Operations.Add((string x) => "Test: " + x);
     }
 }

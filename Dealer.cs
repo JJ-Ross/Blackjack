@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-class Dealer
+public class Dealer
 {
+    public List<Card> Hand = new List<Card>();
 }

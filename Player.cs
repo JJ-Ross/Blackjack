@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Net.Sockets;
 
-class Player
+public class Player
 {
-    private List<Card> hand = new List<Card>();
+    public List<Card> Hand = new List<Card>();
     private Socket connection;
 
     public Player(Socket connection)
@@ -14,7 +14,7 @@ class Player
     public int GetTotal()
     {
         int total = 0;
-        foreach (Card card in hand)
+        foreach (Card card in Hand)
         {
             total += card.Value;
         }
