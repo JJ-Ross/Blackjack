@@ -18,6 +18,17 @@ public class Player
         {
             total += card.Value;
         }
+        if (total > 21)
+        {
+            foreach (Card card in Hand)
+            {
+                if (card.Value == 11)
+                {
+                    card.Value = 1;
+                    if (GetTotal() <= 21) break;
+                }
+            }
+        }
         return total;
     }
 }

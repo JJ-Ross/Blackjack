@@ -26,18 +26,35 @@ public class Game
         dealer.Hand.Add(deck.Pop());
     }
 
+    private void EndRound()
+    {
+        int greatestTotal = 0;
+        foreach (Player player in players)
+        {
+            if (player.GetTotal() > greatestTotal)
+            {
+                greatestTotal = player.GetTotal();
+            }
+        }
+        while (dealer.GetTotal() <= greatestTotal && dealer.GetTotal() < 17)
+        {
+            dealer.Hand.Add(deck.Pop());
+        }
+        if (dealer.GetTotal() <= 21) Console.WriteLine("dealer wins");
+        else Console.WriteLine("Someone won");
+    }
+
     public string HitRPC(string json)
     {
         Player player = JsonConvert.DeserializeObject<Player>(json);
         Card popCard = deck.Pop();
         player.Hand.Add(popCard);
-        if (++CurrentPlayer >= players.Length) CurrentPlayer = 0;
         return JsonConvert.SerializeObject(popCard);
     }
 
     public string StandRPC(string ignore)
     {
-        if (++CurrentPlayer >= players.Length) CurrentPlayer = 0;
+        if (++CurrentPlayer >= players.Length) EndRound();
         return null;
     }
 }
