@@ -16,6 +16,18 @@ public class Server
         Socket listener = new Socket(IPAddress.Any.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
         listener.Bind(localEndPoint);
         listener.Listen(128);
+        new Thread(() =>
+        {
+            while (true)
+            {
+                string line = Console.ReadLine();
+                if (line.Equals("start"))
+                {
+                    //start new round
+                    break;
+                }
+            }
+        }).Start();
         while (true)
         {
             Console.WriteLine("Waiting for connection...");

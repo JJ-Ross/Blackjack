@@ -31,10 +31,16 @@ public class Deck
             cards[res] = cards[i];
             cards[i] = temp;
         }
+        top = 0;
     }
 
     public Card Pop()
     {
-        return top == 52 ? null : cards[top++];
+        Card card = cards[top++];
+        if (card.Label.Equals("Ace"))
+        {
+            card.Value = 11;
+        }
+        return top == 52 ? null : card;
     }
 }
