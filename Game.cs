@@ -63,6 +63,13 @@ public class Game
     {
         JObject obj = new JObject();
         obj.Add("currentPlayer", CurrentPlayer);
+        Card[][] hands = new Card[players.Length + 1][];
+        for (int i = 0; i < players.Length; i++)
+        {
+            hands[i] = players[i].Hand.ToArray();
+        }
+        hands[hands.Length - 1] = dealer.Hand.ToArray();
+        obj.Add("hands", JsonConvert.SerializeObject(hands));
         return obj.ToString();
     }
 }
