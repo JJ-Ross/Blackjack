@@ -63,8 +63,6 @@ public class Game
     {
         JObject obj = new JObject();
         obj.Add("currentPlayer", CurrentPlayer);
-        obj.Add("players", JsonConvert.SerializeObject(players));
-        obj.Add("dealer", JsonConvert.SerializeObject(dealer));
         return obj.ToString();
     }
 }
