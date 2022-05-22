@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Net.Sockets;
-
 
 class Player
 {
@@ -24,4 +21,3 @@ class Player
         return total;
     }
 }
-
